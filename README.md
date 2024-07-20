@@ -23,7 +23,7 @@ This application provides sentiment analysis capabilities for text input. Users 
 ## Features
 
 - Text input for sentiment analysis
-- File upload support (TXT, PDF)
+- File upload support (TXT)
 - Sentiment classification (Positive, Negative, Neutral)
 - Detailed sentiment scores (Positive, Negative, Neutral, Compound)
 - Word count and character count
