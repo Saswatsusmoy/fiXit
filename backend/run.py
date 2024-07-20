@@ -13,7 +13,7 @@ ensure_upload_folder_exists(app)
 if __name__ == '__main__':
     # Use environment variables for host and port, with defaults
     host = os.getenv('FLASK_HOST', '0.0.0.0')
-    port = int(os.getenv('FLASK_PORT', 5000))
+    port = int(os.getenv('FLASK_PORT', 10000))
     debug = os.getenv('FLASK_DEBUG', 'True').lower() == 'true'
 
     app.run(host=host, port=port, debug=debug)
