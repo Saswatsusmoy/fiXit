@@ -1,9 +1,10 @@
-# frontend/utils/api.py
+# frontend/utils/.py
+
 import os
 import requests
 import streamlit as st
 
-BASE_URL = os.environ.get('API_BASE_URL', 'http://localhost:5000')
+BASE_URL = os.environ.get('BACKEND_URL', 'http://localhost:5000')
 
 def upload_file(file):
     response = requests.post(f"{BASE_URL}/upload", files={"file": file})
