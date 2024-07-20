@@ -1,38 +1,37 @@
-# frontend/utils/.py
-
 import os
 import requests
 import streamlit as st
 
-BASE_URL = os.environ.get('BACKEND_URL', 'http://localhost:5000')
+# Use st.secrets to access the BASE_URL
+BASE_URL = st.secrets.get("BASE_URL", "https://fixit-zvso.onrender.com")
 
 def upload_file(file):
-    response = requests.post(f"{BASE_URL}/upload", files={"file": file})
-    if response.status_code == 200:
+    try:
+        response = requests.post(f"{BASE_URL}/upload", files={"file": file})
+        response.raise_for_status()
         data = response.json()
         return data.get("file_id")
-    else:
-        st.error(f"Error uploading file: {response.status_code}")
+    except requests.RequestException as e:
+        st.error(f"Error uploading file: {str(e)}")
         return None
 
 def analyze_sentiment(input_data):
-    if isinstance(input_data, str):
-        # If input_data is a string, it's pasted text
-        response = requests.post(f"{BASE_URL}/analyze", json={"text": input_data})
-    else:
-        # Otherwise, it's a file_id
-        response = requests.post(f"{BASE_URL}/analyze", json={"file_id": input_data})
-    
-    if response.status_code == 200:
+    try:
+        if isinstance(input_data, str):
+            response = requests.post(f"{BASE_URL}/analyze", json={"text": input_data})
+        else:
+            response = requests.post(f"{BASE_URL}/analyze", json={"file_id": input_data})
+        response.raise_for_status()
         return response.json()
-    else:
-        st.error(f"Error analyzing sentiment: {response.status_code}")
+    except requests.RequestException as e:
+        st.error(f"Error analyzing sentiment: {str(e)}")
         return None
 
 def get_all_results():
-    response = requests.get(f"{BASE_URL}/results")
-    if response.status_code == 200:
+    try:
+        response = requests.get(f"{BASE_URL}/results")
+        response.raise_for_status()
         return response.json()
-    else:
-        st.error(f"Error fetching results: {response.status_code}")
+    except requests.RequestException as e:
+        st.error(f"Error fetching results: {str(e)}")
         return None
