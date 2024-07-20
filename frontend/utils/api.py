@@ -3,7 +3,7 @@ import requests
 import streamlit as st
 
 # Use st.secrets to access the BASE_URL
-BASE_URL = st.secrets.get("BASE_URL", "https://fixit-zvso.onrender.com")
+BASE_URL = st.secrets.get("BASE_URL") or os.environ.get("BASE_URL") or "https://fixit-zvso.onrender.com"
 
 def upload_file(file):
     try:
