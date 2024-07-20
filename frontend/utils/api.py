@@ -3,7 +3,7 @@
 import requests
 import streamlit as st
 
-BASE_URL = "http://localhost:5000"  # Adjust this to your backend URL
+BASE_URL = "https://sentimentanalysisbackend-hs81ogipb-saswat-susmoys-projects.vercel.app"
 
 def upload_file(file):
     response = requests.post(f"{BASE_URL}/upload", files={"file": file})
