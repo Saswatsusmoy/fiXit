@@ -1,11 +1,13 @@
-# backend/app/routes.py
-
 from flask import Blueprint, request, jsonify, current_app
-from backend.app.services.file_service import save_file, read_file
-from backend.app.services.sentiment_service import analyze_sentiment
+from .services.file_service import save_file, read_file
+from .services.sentiment_service import analyze_sentiment
 import os
 
 main = Blueprint('main', __name__)
+
+@main.route('/')
+def index():
+    return jsonify({"message": "Welcome to the Sentiment Analysis API"}), 200
 
 @main.route('/upload', methods=['POST'])
 def upload_file():
@@ -54,9 +56,8 @@ def get_results():
             'filename': filename,
             'file_size': file_size,
             'text': text,
-            'word_count': len(text.split()),  # Add this line
+            'word_count': len(text.split()),
             'char_count': len(text),
             **sentiment_result
         })
     return jsonify(results), 200
-
